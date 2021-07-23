@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		E71BD8B126A9D87E00EDD7EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71BD8B026A9D87E00EDD7EA /* AppDelegate.swift */; };
 		E71BD8B326A9D87E00EDD7EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71BD8B226A9D87E00EDD7EA /* SceneDelegate.swift */; };
-		E71BD8B526A9D87E00EDD7EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71BD8B426A9D87E00EDD7EA /* ViewController.swift */; };
 		E71BD8B826A9D87E00EDD7EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71BD8B626A9D87E00EDD7EA /* Main.storyboard */; };
 		E71BD8BA26A9D87F00EDD7EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E71BD8B926A9D87F00EDD7EA /* Assets.xcassets */; };
 		E71BD8BD26A9D87F00EDD7EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71BD8BB26A9D87F00EDD7EA /* LaunchScreen.storyboard */; };
+		E71BD8C726AAD4E100EDD7EA /* MainTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71BD8C626AAD4E100EDD7EA /* MainTableVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E71BD8AD26A9D87E00EDD7EA /* MyPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E71BD8B026A9D87E00EDD7EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E71BD8B226A9D87E00EDD7EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E71BD8B426A9D87E00EDD7EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E71BD8B726A9D87E00EDD7EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E71BD8B926A9D87F00EDD7EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E71BD8BC26A9D87F00EDD7EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E71BD8BE26A9D87F00EDD7EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E71BD8C626AAD4E100EDD7EA /* MainTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +56,23 @@
 		E71BD8AF26A9D87E00EDD7EA /* MyPlaces */ = {
 			isa = PBXGroup;
 			children = (
-				E71BD8B026A9D87E00EDD7EA /* AppDelegate.swift */,
-				E71BD8B226A9D87E00EDD7EA /* SceneDelegate.swift */,
-				E71BD8B426A9D87E00EDD7EA /* ViewController.swift */,
+				E71BD8C626AAD4E100EDD7EA /* MainTableVC.swift */,
 				E71BD8B626A9D87E00EDD7EA /* Main.storyboard */,
 				E71BD8B926A9D87F00EDD7EA /* Assets.xcassets */,
+				E71BD8C526A9D8D000EDD7EA /* New Group */,
+			);
+			path = MyPlaces;
+			sourceTree = "<group>";
+		};
+		E71BD8C526A9D8D000EDD7EA /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				E71BD8B026A9D87E00EDD7EA /* AppDelegate.swift */,
+				E71BD8B226A9D87E00EDD7EA /* SceneDelegate.swift */,
 				E71BD8BB26A9D87F00EDD7EA /* LaunchScreen.storyboard */,
 				E71BD8BE26A9D87F00EDD7EA /* Info.plist */,
 			);
-			path = MyPlaces;
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +145,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E71BD8B526A9D87E00EDD7EA /* ViewController.swift in Sources */,
 				E71BD8B126A9D87E00EDD7EA /* AppDelegate.swift in Sources */,
 				E71BD8B326A9D87E00EDD7EA /* SceneDelegate.swift in Sources */,
+				E71BD8C726AAD4E100EDD7EA /* MainTableVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
