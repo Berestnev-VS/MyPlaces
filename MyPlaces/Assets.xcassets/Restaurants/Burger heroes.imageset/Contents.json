@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Burger heroes.jpg",
+      "filename" : "Burger Heroes.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Burger heroes@2x.jpg",
+      "filename" : "Burger Heroes-1.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Burger heroes@3x.jpg",
+      "filename" : "Burger Heroes-2.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

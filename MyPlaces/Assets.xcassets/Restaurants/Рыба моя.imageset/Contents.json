@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ПиццаСушиВок.jpg",
+      "filename" : "Рыба моя.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ПиццаСушиВок@2x.jpg",
+      "filename" : "Рыба моя-1.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ПиццаСушиВок@3x.jpg",
+      "filename" : "Рыба моя-2.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }
