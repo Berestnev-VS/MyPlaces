@@ -23,8 +23,6 @@ class MainTableVC: UITableViewController {
         cell.imagePlace?.image = UIImage(named: places[indexPath.row].image)
         cell.imagePlace?.layer.cornerRadius = 20
         cell.imageCategory.image = UIImage(named: places[indexPath.row].type)
-        
-    
         cell.imagePlace.clipsToBounds = true
         return cell
     }
