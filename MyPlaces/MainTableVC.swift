@@ -8,6 +8,10 @@ class MainTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tap = UITapGestureRecognizer(target: tableView, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)  //отвечает за скрытие клавиатуры при нажатии по экрану
+        
     }
 
     // MARK: - Table view data source
@@ -27,4 +31,6 @@ class MainTableVC: UITableViewController {
         return cell
     }
     
+    @IBAction func cancelAction(segue: UIStoryboardSegue) {}
+
 }
