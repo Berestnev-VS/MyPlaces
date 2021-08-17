@@ -10,6 +10,7 @@ import UIKit
 class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
     
+    @IBOutlet weak var addNewImageForPlace: UIImageView!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var locationTF: UITextField!
     @IBOutlet weak var commentTextView: UITextView!
@@ -44,15 +45,26 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
+            
             let actionSheet = UIAlertController(title: nil,
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
-            let cameraAction = UIAlertAction(title: "Камера 📷", style: .default) { _ in
+            let cameraAction = UIAlertAction(title: "Камера", style: .default) { _ in
                 self.chooseImagePicker(source: .camera)
             }
-            let photoAction = UIAlertAction(title: "Фото 🌄", style: .default) { _ in
+            let photoAction = UIAlertAction(title: "Фото", style: .default) { _ in
                 self.chooseImagePicker(source: .photoLibrary)
             }
+            let cameraIcon = #imageLiteral(resourceName: "camera.icon")
+            let photoIcon = #imageLiteral(resourceName: "image.iccon")
+            
+            actionSheet.view.tintColor = UIColor(named: "mySystemColor")
+            cameraAction.setValue(cameraIcon, forKey: "image")
+            cameraAction.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
+            photoAction.setValue(photoIcon, forKey: "image")
+            photoAction.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
+            
+            
 //          let searchInternetAction = UIAlertAction(title: "Фото 🌄", style: .default) { _ in
 //              // TODO: поиск изображения в интернете. Возможно откажусь от этой идеи.
 //          }
@@ -85,14 +97,29 @@ extension AddNewCellTVC: UITextFieldDelegate {
 
 
 // MARK: Работа с добавлением изображения
-extension AddNewCellTVC {
+extension AddNewCellTVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func chooseImagePicker(source: UIImagePickerController.SourceType) {
         if UIImagePickerController.isSourceTypeAvailable(source) {
-            let selectedPicker = UIImagePickerController()
-            selectedPicker.sourceType = source
-            selectedPicker.allowsEditing = true
-            present(selectedPicker, animated: true)
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = source 
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true)
         }
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        addNewImageForPlace.image = info[.editedImage] as? UIImage
+        // addNewImageForPlace.frame = CGRect(x: 14.67, y: 3, width: 399, height: 244)
+        addNewImageForPlace.layer.cornerRadius = CGFloat(10)
+        addNewImageForPlace.contentMode = .scaleToFill
+        addNewImageForPlace.clipsToBounds = true
+        dismiss(animated: true)
+        
     }
 }
 

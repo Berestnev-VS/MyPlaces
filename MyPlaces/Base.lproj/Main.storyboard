@@ -341,6 +341,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addNewImageForPlace" destination="Whr-MV-mcB" id="uFz-gb-1CJ"/>
                         <outlet property="commentTextView" destination="yN8-8L-sME" id="eS0-Wd-9HU"/>
                         <outlet property="locationTF" destination="8ap-LI-4pV" id="6Cm-ny-UoS"/>
                         <outlet property="nameTF" destination="miY-Jn-iVe" id="pk6-sW-ZaA"/>
