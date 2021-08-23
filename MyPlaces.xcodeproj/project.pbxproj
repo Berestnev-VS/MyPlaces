@@ -16,6 +16,7 @@
 		E74BED7C26B0116200A38B7E /* AddNewCellTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BED7B26B0116200A38B7E /* AddNewCellTVC.swift */; };
 		E76A169826AEF69B004D128F /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A169726AEF69B004D128F /* PlaceModel.swift */; };
 		E785EA3E26AB2A710025A5C3 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E785EA3D26AB2A710025A5C3 /* CustomCell.swift */; };
+		E7D5856F26D3E315003B74D3 /* kindOfPlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E74BED7B26B0116200A38B7E /* AddNewCellTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCellTVC.swift; sourceTree = "<group>"; };
 		E76A169726AEF69B004D128F /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		E785EA3D26AB2A710025A5C3 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kindOfPlacesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 		E71BD8A426A9D87E00EDD7EA = {
 			isa = PBXGroup;
 			children = (
+				E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */,
 				E71BD8AF26A9D87E00EDD7EA /* MyPlaces */,
 				E71BD8AE26A9D87E00EDD7EA /* Products */,
 			);
@@ -159,6 +162,7 @@
 				E71BD8B326A9D87E00EDD7EA /* SceneDelegate.swift in Sources */,
 				E76A169826AEF69B004D128F /* PlaceModel.swift in Sources */,
 				E785EA3E26AB2A710025A5C3 /* CustomCell.swift in Sources */,
+				E7D5856F26D3E315003B74D3 /* kindOfPlacesModel.swift in Sources */,
 				E71BD8C726AAD4E100EDD7EA /* MainTableVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
