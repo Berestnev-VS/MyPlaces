@@ -18,7 +18,8 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var saveNewPlaceButton: UIBarButtonItem!
     @IBOutlet weak var imageBackrgound: UIImageView!
     @IBOutlet weak var placeCatecoryTF: UITextField!
-    @IBOutlet weak var placeImageCategory: UILabel!
+    @IBOutlet weak var placeEmojiCategory: UILabel!
+    @IBOutlet weak var placeBackgroundForCategory: UIImageView! // TODO: удалить, если не найду решения
     @IBOutlet weak var placeImage: UIImageView!
     @IBOutlet weak var placeNameTF: UITextField!
     @IBOutlet weak var placeLocationTF: UITextField!
@@ -28,6 +29,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        placeBackgroundForCategory.isHidden = true
         saveNewPlaceButton.isEnabled = false
         placeCatecoryTF.delegate = self
         choiseCatecory()
@@ -218,18 +220,21 @@ extension AddNewCellTVC: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0 {
+        switch component {
+        case 0:
             let category = modelForPicker.categories[row]
             modelForPicker.typesByCategories = modelForPicker.getTypes(category_id: category.id)
             pickerView.reloadComponent(1)
             pickerView.selectRow(0, inComponent: 1, animated: true)
             let type = self.modelForPicker.typesByCategories[0]
             placeCatecoryTF.placeholder = ""
-            placeImageCategory.text = "\(type.name)"
-        } else {
+            placeEmojiCategory.text = "\(type.name)"
+        case 1:
             let type = self.modelForPicker.typesByCategories[row]
             placeCatecoryTF.placeholder = ""
-            placeImageCategory.text = "\(type.name)"
+            placeEmojiCategory.text = "\(type.name)"
+        default: print ("Откуда здесь третий столбик?")
+            
         }
     }
 }

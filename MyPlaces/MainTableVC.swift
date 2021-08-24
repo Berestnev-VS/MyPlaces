@@ -26,6 +26,8 @@ class MainTableVC: UITableViewController {
         
         cell.nameLabel?.text = placeOnRow.name
         cell.locationLabel.text = placeOnRow.location
+        /* TODO: удалить всё, что связано с прошлой категорией, в т.ч.:
+        cell.imageCategory.image = UIImage(named: placeOnRow.category!) //убрать unwrap */
         
         if placeOnRow.image == nil {
             cell.imagePlace?.image = UIImage(named: placeOnRow.restaurantImage!) //убрать unwrap

@@ -48,7 +48,6 @@
 		E71BD8A426A9D87E00EDD7EA = {
 			isa = PBXGroup;
 			children = (
-				E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */,
 				E71BD8AF26A9D87E00EDD7EA /* MyPlaces */,
 				E71BD8AE26A9D87E00EDD7EA /* Products */,
 			);
@@ -67,6 +66,7 @@
 			children = (
 				E71BD8C626AAD4E100EDD7EA /* MainTableVC.swift */,
 				E74BED7B26B0116200A38B7E /* AddNewCellTVC.swift */,
+				E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */,
 				E76A169726AEF69B004D128F /* PlaceModel.swift */,
 				E785EA3D26AB2A710025A5C3 /* CustomCell.swift */,
 				E71BD8B626A9D87E00EDD7EA /* Main.storyboard */,
