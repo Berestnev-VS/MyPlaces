@@ -19,7 +19,6 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var imageBackrgound: UIImageView!
     @IBOutlet weak var placeCatecoryTF: UITextField!
     @IBOutlet weak var placeEmojiCategory: UILabel!
-    @IBOutlet weak var placeBackgroundForCategory: UIImageView! // TODO: удалить, если не найду решения
     @IBOutlet weak var placeImage: UIImageView!
     @IBOutlet weak var placeNameTF: UITextField!
     @IBOutlet weak var placeLocationTF: UITextField!
@@ -29,10 +28,9 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeBackgroundForCategory.isHidden = true
         saveNewPlaceButton.isEnabled = false
         placeCatecoryTF.delegate = self
-        choiseCatecory()
+        choiseCatecory() //при выборе категории задаёт в качестве инпута для клавиатуры пикер вью
         categoryPicker.backgroundColor = UIColor(named: "mySystemColor")
         placeNameTF.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         placeholderForComment()
@@ -85,6 +83,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
 //          let searchInternetAction = UIAlertAction(title: "Фото 🌄", style: .default) { _ in
 //              // TODO: поиск изображения в интернете. Возможно откажусь от этой идеи.
 //          }
+            
             let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
             
             actionSheet.addAction(cameraAction)
@@ -109,7 +108,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         
         newPlace = Place(name: placeNameTF.text!,
                          location: placeLocationTF.text,
-                         category: nil,
+                         category: placeEmojiCategory.text,
                          image: previewImage,
                          comment: placeCommentTV.text,
                          restaurantImage: nil)
@@ -209,14 +208,26 @@ extension AddNewCellTVC: UIPickerViewDataSource {
 
 extension AddNewCellTVC: UIPickerViewDelegate {
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if component == 0 {
+//            let category = modelForPicker.categories[row]
+//            return category.name
+//        } else {
+//            let type = modelForPicker.typesByCategories[row]
+//            return type.name
+//        }
+//    }
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        var title = ""
         if component == 0 {
             let category = modelForPicker.categories[row]
-            return category.name
+            title = category.name
         } else {
             let type = modelForPicker.typesByCategories[row]
-            return type.name
+            title = type.name
         }
+        let attrTitle = NSAttributedString(string: title, attributes: [.foregroundColor: UIColor.white, .font: UIFont.init(name: "Helvetica", size: 100)!])
+        return attrTitle
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -236,5 +247,8 @@ extension AddNewCellTVC: UIPickerViewDelegate {
         default: print ("Откуда здесь третий столбик?")
             
         }
+    }
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return CGFloat(50)
     }
 }

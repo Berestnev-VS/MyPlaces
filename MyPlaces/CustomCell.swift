@@ -10,7 +10,8 @@ import UIKit
 class CustomCell: UITableViewCell {
 
     @IBOutlet weak var imagePlace: UIImageView!
-    @IBOutlet weak var imageCategory: UIImageView!
+    @IBOutlet weak var backgroundImageCategory: UIImageView!
+    @IBOutlet weak var emojiCategory: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
 
