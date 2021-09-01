@@ -9,6 +9,7 @@ import UIKit
 
 class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
+    var currentPlace: Place?
     var imageDidAdd: Bool = false
     let categoryPicker = UIPickerView()
     var modelForPicker = ModelForPicker()
@@ -16,7 +17,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
     @IBOutlet weak var saveNewPlaceButton: UIBarButtonItem!
     @IBOutlet weak var imageBackrgound: UIImageView!
-    @IBOutlet weak var placeCatecoryTF: UITextField!
+    @IBOutlet weak var placeCategoryTF: UITextField!
     @IBOutlet weak var placeEmojiCategory: UILabel!
     @IBOutlet weak var placeImage: UIImageView!
     @IBOutlet weak var placeNameTF: UITextField!
@@ -25,18 +26,16 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     var placeholderLabelForComment : UILabel!
     
     override func viewDidLoad() {
+        // TODO: запретить вставлять текст в категорию
         super.viewDidLoad()
-        
         saveNewPlaceButton.isEnabled = false
-        placeCatecoryTF.delegate = self
+        placeCategoryTF.delegate = self
         choiseCatecory() //при выборе категории задаёт в качестве инпута для клавиатуры пикер вью
         categoryPicker.backgroundColor = UIColor(named: "mySystemColor")
         placeNameTF.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         placeholderForComment()
-        /* func gestureRecognizer () {
-        let tapForHideKeyboard = UITapGestureRecognizer(target: tableView, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tapForHideKeyboard)
-        } */
+        
+        setupEditScreen()
         
     }
     
@@ -88,7 +87,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         } else { view.endEditing(true) }   // Скрытие клаиватуры по нажатию на экран (а именно при выборе ячейки)
     }
     
-    func saveNewPlace() {
+    func savePlace() {
         let previewImage: UIImage?
         
         if imageDidAdd {
@@ -104,13 +103,61 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                              category: placeEmojiCategory.text,
                              comment: placeCommentTV.text,
                              imageData: imageData)
-        StorageManager.saveObjects(newPlace)
+        if currentPlace != nil {
+            try! realm.write {
+                currentPlace?.name = newPlace.name
+                currentPlace?.location = newPlace.location
+                currentPlace?.category = newPlace.category
+                currentPlace?.comment = newPlace.comment
+                currentPlace?.imageData = newPlace.imageData
+            }
+        } else { StorageManager.saveObjects(newPlace) }
     }
     
     //Инпут PickerView для TextField
     func choiseCatecory(){
         categoryPicker.delegate = self
-        placeCatecoryTF.inputView = categoryPicker
+        placeCategoryTF.inputView = categoryPicker
+        
+    }
+    
+    private func setupEditScreen() {
+        if currentPlace != nil {
+            
+            setupNavigationBar()
+            imageDidAdd = true
+            
+            guard let data = currentPlace?.imageData, let image = UIImage(data: data) else { return }
+            
+            imageBackrgound.isHidden = true
+            
+            placeImage.image = image
+            placeImage.contentMode = .scaleAspectFill
+            placeImage.layer.cornerRadius = CGFloat(30)
+            placeImage.clipsToBounds = true
+            
+            placeNameTF.text = currentPlace?.name
+            placeLocationTF.text = currentPlace?.location
+            placeEmojiCategory.text = currentPlace?.category
+            placeCommentTV.text = currentPlace?.comment
+        }
+        if placeEmojiCategory.text?.isEmpty == false {
+            placeCategoryTF.placeholder = ""
+            placeCategoryTF.tintColor = .clear
+        }
+        if placeCommentTV.text.isEmpty == false {
+            placeholderLabelForComment.isHidden = true
+        }
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.leftBarButtonItem = nil
+        if let topItem = navigationController?.navigationBar.topItem {
+            topItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            topItem.backBarButtonItem?.tintColor = UIColor(named: "mySystemColor")
+        }
+        title = currentPlace?.name
+        saveNewPlaceButton.isEnabled = true
         
     }
     
@@ -132,7 +179,7 @@ extension AddNewCellTVC: UITextFieldDelegate {
     }
     
     @objc private func updateSaveButton() {
-        if placeNameTF.text?.isEmpty == false {
+        if placeNameTF.text?.isEmpty == false && placeEmojiCategory.text?.isEmpty == false {
             saveNewPlaceButton.isEnabled = true
         } else {
             saveNewPlaceButton.isEnabled = false
@@ -166,9 +213,9 @@ extension AddNewCellTVC: UIImagePickerControllerDelegate, UINavigationController
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         placeImage.image = info[.editedImage] as? UIImage
         placeImage.layer.cornerRadius = CGFloat(30)
-        placeImage.contentMode = .scaleToFill
+        placeImage.contentMode = .scaleAspectFill
         placeImage.clipsToBounds = true
-        imageBackrgound.isHidden = true // TODO: когда буду сохранять все значения, попробую оставить фон скрытым
+        imageBackrgound.isHidden = true
         
         imageDidAdd = true
         
@@ -231,11 +278,13 @@ extension AddNewCellTVC: UIPickerViewDelegate {
             pickerView.reloadComponent(1)
             pickerView.selectRow(0, inComponent: 1, animated: true)
             let type = self.modelForPicker.typesByCategories[0]
-            placeCatecoryTF.placeholder = ""
+            placeCategoryTF.placeholder = ""
+            placeCategoryTF.tintColor = .clear
             placeEmojiCategory.text = "\(type.name)"
         case 1:
             let type = self.modelForPicker.typesByCategories[row]
-            placeCatecoryTF.placeholder = ""
+            placeCategoryTF.placeholder = ""
+            placeCategoryTF.tintColor = .clear
             placeEmojiCategory.text = "\(type.name)"
         default: print ("Откуда здесь третий столбик?")
             

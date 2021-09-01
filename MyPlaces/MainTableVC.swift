@@ -10,8 +10,8 @@ class MainTableVC: UITableViewController {
         
         places = realm.objects(Place.self)
         
-        let tap = UITapGestureRecognizer(target: tableView, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tap)  //отвечает за скрытие клавиатуры при нажатии по экрану
+//        let tap = UITapGestureRecognizer(target: tableView, action: #selector(UIView.endEditing))
+//        view.addGestureRecognizer(tap)  //отвечает за скрытие клавиатуры при нажатии по экрану
     }
 
     // MARK: - TableViewDataSource
@@ -32,6 +32,7 @@ class MainTableVC: UITableViewController {
 
         cell.imagePlace?.layer.cornerRadius = 20
         cell.imagePlace.clipsToBounds = true
+    
         return cell
     }
     
@@ -61,9 +62,18 @@ class MainTableVC: UITableViewController {
     
    // TODO: реализовать перемещение ячеек
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let place = places[indexPath.row]
+            let selectedPlaceVC = segue.destination as! AddNewCellTVC
+            selectedPlaceVC.currentPlace = place 
+        }
+    }
+    
     @IBAction func segueSaveButton(_ segue: UIStoryboardSegue) {
         guard let newPlaceVC = segue.source as? AddNewCellTVC else { return }
-        newPlaceVC.saveNewPlace()
+        newPlaceVC.savePlace()
          
         tableView.reloadData()
     }
