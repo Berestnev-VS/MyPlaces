@@ -9,7 +9,6 @@ import UIKit
 
 class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
-    var newPlace: Place?
     var imageDidAdd: Bool = false
     let categoryPicker = UIPickerView()
     var modelForPicker = ModelForPicker()
@@ -23,11 +22,11 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var placeNameTF: UITextField!
     @IBOutlet weak var placeLocationTF: UITextField!
     @IBOutlet weak var placeCommentTV: UITextView!
-    
     var placeholderLabelForComment : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         saveNewPlaceButton.isEnabled = false
         placeCatecoryTF.delegate = self
         choiseCatecory() //при выборе категории задаёт в качестве инпута для клавиатуры пикер вью
@@ -79,11 +78,6 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
             photoAction.setValue(photoIcon, forKey: "image")
             photoAction.setValue(CATextLayerAlignmentMode.left, forKey: "titleTextAlignment")
             
-            
-//          let searchInternetAction = UIAlertAction(title: "Фото 🌄", style: .default) { _ in
-//              // TODO: поиск изображения в интернете. Возможно откажусь от этой идеи.
-//          }
-            
             let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
             
             actionSheet.addAction(cameraAction)
@@ -94,11 +88,8 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         } else { view.endEditing(true) }   // Скрытие клаиватуры по нажатию на экран (а именно при выборе ячейки)
     }
     
-    
-    
     func saveNewPlace() {
-        
-        let previewImage: UIImage
+        let previewImage: UIImage?
         
         if imageDidAdd {
             previewImage = placeImage.image!
@@ -106,12 +97,14 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
             previewImage = UIImage(named: "image.icon")! //TODO: настроить отображение при отсутствии фото
         }
         
-        newPlace = Place(name: placeNameTF.text!,
-                         location: placeLocationTF.text,
-                         category: placeEmojiCategory.text,
-                         image: previewImage,
-                         comment: placeCommentTV.text,
-                         restaurantImage: nil)
+        let imageData = previewImage?.pngData()
+        
+        let newPlace = Place(name: placeNameTF.text!,
+                             location: placeLocationTF.text,
+                             category: placeEmojiCategory.text,
+                             comment: placeCommentTV.text,
+                             imageData: imageData)
+        StorageManager.saveObjects(newPlace)
     }
     
     //Инпут PickerView для TextField

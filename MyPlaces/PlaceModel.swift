@@ -9,32 +9,19 @@ import RealmSwift
 import UIKit
 
 class Place: Object {
-    var name = ""
+    @objc dynamic var name = ""
     @objc dynamic var location: String?
     @objc dynamic var category: String?
-    @objc dynamic var imageData: Data?
     @objc dynamic var comment: String?
-    
-    let restaurantNames: [String] = ["KFC","McDonalds",
-                                     "Burger Heroes","Якитория",
-                                     "Тануки","Рыба моя",
-                                     "ЙУХ","Хачапури  и Вино"]
-    
-    func savePlaces() {
-        for place in restaurantNames {
-            
-            let image = UIImage(named: place)
-            guard let imageData = image?.pngData() else { return }
-            
-            let newPlace = Place()
-            
-            newPlace.name = place
-            newPlace.category = "🍩"
-            newPlace.location = "Москва"
-            newPlace.comment = "Кеквейт!"
-            newPlace.imageData = imageData
-            
-            StorageManager.saveObjects(newPlace)
-        }
+    @objc dynamic var imageData: Data?
+   
+    convenience init(name: String, location: String?, category: String?, comment: String?, imageData: Data?) {
+        self.init()
+        self.name = name
+        self.location = location
+        self.category = category
+        self.comment = comment
+        self.imageData = imageData
     }
 }
+ 

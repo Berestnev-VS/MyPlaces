@@ -54,7 +54,6 @@
 		E71BD8A426A9D87E00EDD7EA = {
 			isa = PBXGroup;
 			children = (
-				E7B8DC4C26DA788A0087A885 /* StorageManager.swift */,
 				E71BD8AF26A9D87E00EDD7EA /* MyPlaces */,
 				E71BD8AE26A9D87E00EDD7EA /* Products */,
 			);
@@ -77,8 +76,8 @@
 				E76A169726AEF69B004D128F /* PlaceModel.swift */,
 				E785EA3D26AB2A710025A5C3 /* CustomCell.swift */,
 				E71BD8B626A9D87E00EDD7EA /* Main.storyboard */,
-				E71BD8C526A9D8D000EDD7EA /* New Group */,
 				E71BD8B926A9D87F00EDD7EA /* Assets.xcassets */,
+				E71BD8C526A9D8D000EDD7EA /* New Group */,
 			);
 			path = MyPlaces;
 			sourceTree = "<group>";
@@ -86,6 +85,7 @@
 		E71BD8C526A9D8D000EDD7EA /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				E7B8DC4C26DA788A0087A885 /* StorageManager.swift */,
 				E71BD8B026A9D87E00EDD7EA /* AppDelegate.swift */,
 				E71BD8B226A9D87E00EDD7EA /* SceneDelegate.swift */,
 				E71BD8BB26A9D87F00EDD7EA /* LaunchScreen.storyboard */,
