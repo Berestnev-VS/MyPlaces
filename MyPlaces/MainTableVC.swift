@@ -1,8 +1,9 @@
 import RealmSwift
 import UIKit
 
-class MainTableVC: UITableViewController {
+class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var mainTableView: UITableView!
     var places: Results<Place>!
     
     override func viewDidLoad() {
@@ -16,11 +17,11 @@ class MainTableVC: UITableViewController {
 
     // MARK: - TableViewDataSource
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return places.isEmpty ? 0 : places.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as! CustomCell
 
         let placeOnRow = places[indexPath.row]
@@ -38,7 +39,7 @@ class MainTableVC: UITableViewController {
     
     // MARK: TableViewDelegate
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = deletePlaceAction(at: indexPath)
         let swipe = UISwipeActionsConfiguration(actions: [deleteAction])
         swipe.performsFirstActionWithFullSwipe = false
@@ -49,14 +50,14 @@ class MainTableVC: UITableViewController {
         let place = places[indexPath.row]
         let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
             StorageManager.deleteObjects(place)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.mainTableView.deleteRows(at: [indexPath], with: .fade)
             completion(true)
         }
         
         return action
     }
     
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
@@ -64,7 +65,7 @@ class MainTableVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            guard let indexPath = mainTableView.indexPathForSelectedRow else { return }
             let place = places[indexPath.row]
             let selectedPlaceVC = segue.destination as! AddNewCellTVC
             selectedPlaceVC.currentPlace = place 
@@ -74,9 +75,7 @@ class MainTableVC: UITableViewController {
     @IBAction func segueSaveButton(_ segue: UIStoryboardSegue) {
         guard let newPlaceVC = segue.source as? AddNewCellTVC else { return }
         newPlaceVC.savePlace()
-         
-        tableView.reloadData()
+        mainTableView.reloadData()
     }
 }
-
 // TODO: сделать кнопку прокладывания маршрута по свайпу в лево
