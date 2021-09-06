@@ -4,15 +4,16 @@ import UIKit
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var mainTableView: UITableView!
+    @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
+    
     var places: Results<Place>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        typeSegmentedControl.apportionsSegmentWidthsByContent = true // TODO: вынести в отдельную функцию
+        typeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         
         places = realm.objects(Place.self)
-        
-//        let tap = UITapGestureRecognizer(target: tableView, action: #selector(UIView.endEditing))
-//        view.addGestureRecognizer(tap)  //отвечает за скрытие клавиатуры при нажатии по экрану
     }
 
     // MARK: - TableViewDataSource
@@ -30,7 +31,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.locationLabel.text = placeOnRow.location
         cell.emojiCategory.text = placeOnRow.category
         cell.imagePlace.image = UIImage(data: placeOnRow.imageData!)
-
+        
         cell.imagePlace?.layer.cornerRadius = 20
         cell.imagePlace.clipsToBounds = true
     
@@ -53,9 +54,22 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.mainTableView.deleteRows(at: [indexPath], with: .fade)
             completion(true)
         }
-        
         return action
     }
+//    private func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
+//        let place = places[indexPath.row]
+//        let action = UIContextualAction(style: .normal, title: "Love it") { action, view, completion in
+//            place.isFavorite = !place.isFavorite
+//            try! realm.write {
+//                self.places[indexPath.row] = place
+//                place.isFavorite = !place.isFavorite
+//            }
+//            completion(true)
+//        }
+//        action.backgroundColor = place.isFavorite ? .systemPink : .systemGray
+//        action.image = place.isFavorite ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+//        return action
+//    } TODO: в будущем добавить избранные заведения
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -77,5 +91,28 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         newPlaceVC.savePlace()
         mainTableView.reloadData()
     }
+    
+    @IBAction func sortSelection(_ sender: UISegmentedControl) {
+        let restaurantsType = ["🍕", "🍣", "🍔", "🥗", "🍝", "🍤", "🍨", "🍩", "🐟"]
+        let entertainmentType = ["🎬", "🎳", "🎪"]
+        let parksType = ["🌳", "🎢"]
+        
+        let realm = try! Realm()
+
+        switch sender.selectedSegmentIndex {
+        case 0:
+            let result = realm.objects(Place.self).filter("ANY type.text = 'Рестораны'")
+            print(result)
+        case 1:
+            let result = realm.objects(Place.self).filter("ANY type.text = 'Рестораны'")
+            print(result)
+        case 2:
+            let result = realm.objects(Place.self).filter("ANY type.text = 'Рестораны'")
+            print(result)
+        default:
+            print("kek")
+        }
+    }
+    
 }
 // TODO: сделать кнопку прокладывания маршрута по свайпу в лево

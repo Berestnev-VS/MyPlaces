@@ -23,6 +23,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var placeNameTF: UITextField!
     @IBOutlet weak var placeLocationTF: UITextField!
     @IBOutlet weak var placeCommentTV: UITextView!
+    var placeType: String?
     var placeholderLabelForComment : UILabel!
     
     override func viewDidLoad() {
@@ -100,16 +101,37 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         
         let newPlace = Place(name: placeNameTF.text!,
                              location: placeLocationTF.text,
-                             category: placeEmojiCategory.text,
                              comment: placeCommentTV.text,
-                             imageData: imageData)
+                             imageData: imageData,
+                             type: placeType,
+                             category: placeEmojiCategory.text)
+                             // isFavorite: false
+
+        switch placeEmojiCategory.text { //присваивает тип в зависимости от выбранной категории
+        case "🍕", "🍣", "🍔", "🥗", "🍝", "🍤", "🍨", "🍩", "🐟":
+            newPlace.type = "Рестораны"
+            print("Это место - ресторан")
+        case "🎬", "🎳", "🎪":
+            newPlace.type = "Развлечения"
+            print("Это место для развлечений")
+        case "🌳", "🎢":
+            newPlace.type = "Парки"
+            print("Это место - парк")
+        case nil:
+            print("Заведение не имеет типа")
+        default:
+            print("WARNING! Тип заведения, не предусмотренный программой")
+        }
+        
         if currentPlace != nil {
             try! realm.write {
                 currentPlace?.name = newPlace.name
                 currentPlace?.location = newPlace.location
-                currentPlace?.category = newPlace.category
                 currentPlace?.comment = newPlace.comment
                 currentPlace?.imageData = newPlace.imageData
+                currentPlace?.type = newPlace.type
+                currentPlace?.category = newPlace.category
+                // currentPlace?.isFavorite = newPlace.isFavorite
             }
         } else { StorageManager.saveObjects(newPlace) }
     }
@@ -140,6 +162,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
             placeLocationTF.text = currentPlace?.location
             placeEmojiCategory.text = currentPlace?.category
             placeCommentTV.text = currentPlace?.comment
+            placeType = currentPlace?.type
         }
         if placeEmojiCategory.text?.isEmpty == false {
             placeCategoryTF.placeholder = ""
@@ -287,7 +310,6 @@ extension AddNewCellTVC: UIPickerViewDelegate {
             placeCategoryTF.tintColor = .clear
             placeEmojiCategory.text = "\(type.name)"
         default: print ("Откуда здесь третий столбик?")
-            
         }
     }
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {

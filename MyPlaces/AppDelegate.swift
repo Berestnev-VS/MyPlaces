@@ -13,19 +13,15 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let config = Realm.Configuration(schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in
+        let currentVersion: UInt64 = 4
+        let config = Realm.Configuration(schemaVersion: currentVersion, migrationBlock: { migration, oldSchemaVersion in
              print("oldSchemaVersion: \(oldSchemaVersion)")
-             if (oldSchemaVersion < 1) {
-                print("performing migration")
-
-                migration.enumerateObjects(ofType: Place.className()) { oldItem, newItem in
-                    newItem!["name"] = oldItem!["name"]
-                 }
+             if (oldSchemaVersion < currentVersion) {
+                
              }
          })
         Realm.Configuration.defaultConfiguration = config
-        
-        let realm = try! Realm()
+
         return true
     }
 

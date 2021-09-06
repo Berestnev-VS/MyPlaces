@@ -36,6 +36,7 @@ class ModelForPicker {
         let type16 = Type(id: 6, name: "🍤", category_id: 1)
         let type17 = Type(id: 7, name: "🍨", category_id: 1)
         let type18 = Type(id: 8, name: "🍩", category_id: 1)
+        let type19 = Type(id: 9, name: "🐟", category_id: 1)
         
         types.append(type11)
         types.append(type12)
@@ -45,6 +46,7 @@ class ModelForPicker {
         types.append(type16)
         types.append(type17)
         types.append(type18)
+        types.append(type19)
         
         let type21 = Type(id: 7, name: "🎬", category_id: 2)
         let type22 = Type(id: 8, name: "🎳", category_id: 2)

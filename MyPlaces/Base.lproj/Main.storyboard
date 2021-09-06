@@ -339,7 +339,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="250" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uCY-cw-Xwe">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="776"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -420,11 +420,32 @@
                                     <outlet property="delegate" destination="ehe-FU-zOw" id="yNk-x8-w8f"/>
                                 </connections>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kOX-Xz-0Z8">
+                                <rect key="frame" x="0.0" y="88" width="414" height="32"/>
+                                <segments>
+                                    <segment title="Всё"/>
+                                    <segment title="Рестораны 🍹"/>
+                                    <segment title="Развлечения 🎳"/>
+                                    <segment title="Парки 🌳"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" name="mySystemColor"/>
+                                <connections>
+                                    <action selector="sortSelection:" destination="ehe-FU-zOw" eventType="valueChanged" id="Sw1-5U-Wr9"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pRK-HA-f7y"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="kOX-Xz-0Z8" firstAttribute="top" secondItem="pRK-HA-f7y" secondAttribute="top" id="Use-Ln-bma"/>
+                            <constraint firstItem="pRK-HA-f7y" firstAttribute="trailing" secondItem="kOX-Xz-0Z8" secondAttribute="trailing" id="sR6-gt-4y6"/>
+                            <constraint firstItem="kOX-Xz-0Z8" firstAttribute="leading" secondItem="pRK-HA-f7y" secondAttribute="leading" id="zfp-kj-o1L"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="MyPlaces" largeTitleDisplayMode="never" id="FV6-M2-Y7K">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="heart.fill" catalog="system" id="kTC-Mw-aQu">
+                            <color key="tintColor" name="mySystemColor"/>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tBs-3n-MAs">
                             <connections>
                                 <segue destination="gaM-oB-mpL" kind="presentation" id="9g1-gv-UIq"/>
@@ -433,11 +454,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mainTableView" destination="uCY-cw-Xwe" id="EiH-0H-uX2"/>
+                        <outlet property="typeSegmentedControl" destination="kOX-Xz-0Z8" id="Xhm-xb-N72"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1DP-Ro-6mh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="781" y="-192"/>
+            <point key="canvasLocation" x="779.71014492753625" y="-192.1875"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -445,6 +467,7 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="mySystemColor"/>
     <resources>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="photo.fill.on.rectangle.fill" catalog="system" width="128" height="96"/>
         <image name="Фон для категории" width="1024" height="1024"/>
         <image name="Фон для комментария" width="2907" height="1602"/>
