@@ -93,10 +93,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func sortSelection(_ sender: UISegmentedControl) {
-        let restaurantsType = ["🍕", "🍣", "🍔", "🥗", "🍝", "🍤", "🍨", "🍩", "🐟"]
-        let entertainmentType = ["🎬", "🎳", "🎪"]
-        let parksType = ["🌳", "🎢"]
-        
         let realm = try! Realm()
 
         switch sender.selectedSegmentIndex {
@@ -104,10 +100,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let result = realm.objects(Place.self).filter("ANY type.text = 'Рестораны'")
             print(result)
         case 1:
-            let result = realm.objects(Place.self).filter("ANY type.text = 'Рестораны'")
+            let result = realm.objects(Place.self).filter("ANY type.text = 'Развлечения'")
             print(result)
         case 2:
-            let result = realm.objects(Place.self).filter("ANY type.text = 'Рестораны'")
+            let result = realm.objects(Place.self).filter("ANY type.text = 'Парки'")
             print(result)
         default:
             print("kek")
