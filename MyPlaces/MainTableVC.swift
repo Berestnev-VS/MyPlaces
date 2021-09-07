@@ -3,10 +3,21 @@ import UIKit
 
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    private let searchControllerMain = UISearchController(searchResultsController: nil)
+    //private var filteredPlaces: Result<Place>!
+    private var places: Results<Place>!
+     
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchControllerMain.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return searchControllerMain.isActive && !searchBarIsEmpty
+    }
+    
     @IBOutlet weak var mainTableView: UITableView!
     @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
     
-    var places: Results<Place>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,19 +25,36 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         typeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         
         places = realm.objects(Place.self)
+        
+        //Настройка searchController
+        searchControllerMain.searchResultsUpdater = self
+        searchControllerMain.obscuresBackgroundDuringPresentation = false
+        searchControllerMain.searchBar.placeholder = "􀒓"
+        navigationItem.searchController = searchControllerMain
+        definesPresentationContext = true
     }
 
     // MARK: - TableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return places.isEmpty ? 0 : places.count
+        if isFiltering {
+            return 1
+        } else {
+            return places.isEmpty ? 0 : places.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as! CustomCell
 
-        let placeOnRow = places[indexPath.row]
-
+        var placeOnRow = Place()
+        
+        if isFiltering {
+           // placeOnRow = filteredPlaces[indexPath.row]
+        } else {
+            placeOnRow = places[indexPath.row]
+        }
+        
         cell.nameLabel?.text = placeOnRow.name
         cell.locationLabel.text = placeOnRow.location
         cell.emojiCategory.text = placeOnRow.category
@@ -118,3 +146,16 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
 }
 // TODO: сделать кнопку прокладывания маршрута по свайпу в лево
+
+extension MainViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearch(searchController.searchBar.text!)
+    }
+    
+    private func filterContentForSearch(_ searchText: String) {
+        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@ OR category CONTAINS[c] %@", searchText, searchText, searchText)
+        mainTableView.reloadData()
+    }
+    
+}

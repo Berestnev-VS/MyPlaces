@@ -8,7 +8,7 @@
 import RealmSwift
 
 let realm = try! Realm()
-
+khj
 class StorageManager {
     
     static func saveObjects(_ place: Place) {
