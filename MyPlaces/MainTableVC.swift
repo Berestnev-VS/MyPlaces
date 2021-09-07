@@ -94,20 +94,26 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction func sortSelection(_ sender: UISegmentedControl) {
         let realm = try! Realm()
-
+        
         switch sender.selectedSegmentIndex {
         case 0:
-            let result = realm.objects(Place.self).filter("ANY type.text = 'Рестораны'")
-            print(result)
+            let result = realm.objects(Place.self)
+            places = result
         case 1:
-            let result = realm.objects(Place.self).filter("ANY type.text = 'Развлечения'")
-            print(result)
+            let result = realm.objects(Place.self).filter("type == 'Рестораны'")
+            places = result
         case 2:
-            let result = realm.objects(Place.self).filter("ANY type.text = 'Парки'")
+            let result = realm.objects(Place.self).filter("type == 'Развлечения'")
             print(result)
+            places = result
+        case 3:
+            let result = realm.objects(Place.self).filter("type == 'Парки'")
+            print(result)
+            places = result
         default:
-            print("kek")
+            break
         }
+        mainTableView.reloadData()
     }
     
 }

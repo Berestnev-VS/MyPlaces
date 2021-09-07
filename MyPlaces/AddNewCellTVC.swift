@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
@@ -24,6 +25,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var placeLocationTF: UITextField!
     @IBOutlet weak var placeCommentTV: UITextView!
     var placeType: String?
+    var placeTypes: String?
     var placeholderLabelForComment : UILabel!
     
     override func viewDidLoad() {
@@ -106,21 +108,22 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                              type: placeType,
                              category: placeEmojiCategory.text)
                              // isFavorite: false
-
+        
+        
         switch placeEmojiCategory.text { //присваивает тип в зависимости от выбранной категории
         case "🍕", "🍣", "🍔", "🥗", "🍝", "🍤", "🍨", "🍩", "🐟":
             newPlace.type = "Рестораны"
-            print("Это место - ресторан")
+            print(newPlace.name, " это Ресторан")
         case "🎬", "🎳", "🎪":
             newPlace.type = "Развлечения"
-            print("Это место для развлечений")
+            print(newPlace.name, " это Развлечения")
         case "🌳", "🎢":
             newPlace.type = "Парки"
-            print("Это место - парк")
+            print(newPlace.name, " это Парк")
         case nil:
             print("Заведение не имеет типа")
         default:
-            print("WARNING! Тип заведения, не предусмотренный программой")
+            print("WARNING!")
         }
         
         if currentPlace != nil {
