@@ -4,14 +4,14 @@ import UIKit
 class MainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private let searchControllerMain = UISearchController(searchResultsController: nil)
-    //private var filteredPlaces: Result<Place>!
     private var places: Results<Place>!
+    private var filteredPlaces: Results<Place>!
      
     private var searchBarIsEmpty: Bool {
         guard let text = searchControllerMain.searchBar.text else { return false }
         return text.isEmpty
     }
-    private var isFiltering: Bool {
+    private var isSearching: Bool {
         return searchControllerMain.isActive && !searchBarIsEmpty
     }
     
@@ -21,7 +21,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        typeSegmentedControl.apportionsSegmentWidthsByContent = true // TODO: вынести в отдельную функцию
+        typeSegmentedControl.apportionsSegmentWidthsByContent = true
         typeSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         
         places = realm.objects(Place.self)
@@ -29,16 +29,22 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //Настройка searchController
         searchControllerMain.searchResultsUpdater = self
         searchControllerMain.obscuresBackgroundDuringPresentation = false
-        searchControllerMain.searchBar.placeholder = "􀒓"
+        searchControllerMain.searchBar.placeholder = "Search"
         navigationItem.searchController = searchControllerMain
-        definesPresentationContext = true
+        searchControllerMain.definesPresentationContext = true
+        searchControllerMain.isActive = false
+        
+        
+        if searchControllerMain.isActive {
+            self.typeSegmentedControl.layer.isHidden = true
+        }
     }
 
     // MARK: - TableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
-            return 1
+        if isSearching {
+            return filteredPlaces.count
         } else {
             return places.isEmpty ? 0 : places.count
         }
@@ -49,8 +55,8 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         var placeOnRow = Place()
         
-        if isFiltering {
-           // placeOnRow = filteredPlaces[indexPath.row]
+        if isSearching {
+            placeOnRow = filteredPlaces[indexPath.row]
         } else {
             placeOnRow = places[indexPath.row]
         }
@@ -154,7 +160,7 @@ extension MainViewController: UISearchResultsUpdating {
     }
     
     private func filterContentForSearch(_ searchText: String) {
-        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@ OR category CONTAINS[c] %@", searchText, searchText, searchText)
+        filteredPlaces = realm.objects(Place.self).filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@ OR category CONTAINS[c] %@", searchText, searchText, searchText)
         mainTableView.reloadData()
     }
     

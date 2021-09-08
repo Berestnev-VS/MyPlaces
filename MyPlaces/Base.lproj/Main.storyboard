@@ -338,8 +338,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="250" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uCY-cw-Xwe">
-                                <rect key="frame" x="0.0" y="120" width="414" height="776"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="250" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uCY-cw-Xwe">
+                                <rect key="frame" x="0.0" y="119" width="414" height="776"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -362,7 +362,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="E2l-hk-0aU"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -393,13 +393,13 @@
                                                 <constraint firstItem="wgA-ko-4AK" firstAttribute="centerX" secondItem="6QX-iJ-3Fp" secondAttribute="centerX" id="2NR-Xc-Moz"/>
                                                 <constraint firstItem="wj8-WS-sAJ" firstAttribute="top" secondItem="wgA-ko-4AK" secondAttribute="bottom" constant="8" symbolic="YES" id="9M9-8c-Wni"/>
                                                 <constraint firstItem="wj8-WS-sAJ" firstAttribute="leading" secondItem="6QX-iJ-3Fp" secondAttribute="leadingMargin" constant="52" id="CaS-2I-8v8"/>
-                                                <constraint firstItem="0ni-2I-Vsn" firstAttribute="top" secondItem="6QX-iJ-3Fp" secondAttribute="topMargin" constant="3" id="DRF-TX-leB"/>
                                                 <constraint firstItem="3Lb-t8-Cqg" firstAttribute="centerY" secondItem="2en-Zd-jpC" secondAttribute="centerY" id="DiJ-gq-G04"/>
                                                 <constraint firstItem="wgA-ko-4AK" firstAttribute="top" secondItem="2en-Zd-jpC" secondAttribute="bottom" constant="-33" id="GaJ-fm-03B"/>
                                                 <constraint firstItem="2en-Zd-jpC" firstAttribute="top" secondItem="6QX-iJ-3Fp" secondAttribute="topMargin" constant="9" id="J95-bc-3Dg"/>
                                                 <constraint firstItem="0ni-2I-Vsn" firstAttribute="leading" secondItem="6QX-iJ-3Fp" secondAttribute="leadingMargin" constant="59" id="LSy-ER-exx"/>
                                                 <constraint firstItem="wj8-WS-sAJ" firstAttribute="centerX" secondItem="wgA-ko-4AK" secondAttribute="centerX" id="NXL-j5-p8Q"/>
                                                 <constraint firstItem="0ni-2I-Vsn" firstAttribute="centerX" secondItem="wgA-ko-4AK" secondAttribute="centerX" id="RfD-rn-acL"/>
+                                                <constraint firstItem="0ni-2I-Vsn" firstAttribute="top" secondItem="6QX-iJ-3Fp" secondAttribute="top" constant="14" id="caC-aC-L9S"/>
                                                 <constraint firstItem="2en-Zd-jpC" firstAttribute="leading" secondItem="wgA-ko-4AK" secondAttribute="trailing" constant="-32" id="kcU-KY-7LY"/>
                                                 <constraint firstItem="wj8-WS-sAJ" firstAttribute="bottom" secondItem="6QX-iJ-3Fp" secondAttribute="bottomMargin" id="qfp-2n-qKo"/>
                                                 <constraint firstItem="3Lb-t8-Cqg" firstAttribute="centerX" secondItem="2en-Zd-jpC" secondAttribute="centerX" id="vwG-V9-ZTe"/>
@@ -437,9 +437,10 @@
                         <viewLayoutGuide key="safeArea" id="pRK-HA-f7y"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kOX-Xz-0Z8" firstAttribute="top" secondItem="pRK-HA-f7y" secondAttribute="top" id="Use-Ln-bma"/>
-                            <constraint firstItem="pRK-HA-f7y" firstAttribute="trailing" secondItem="kOX-Xz-0Z8" secondAttribute="trailing" id="sR6-gt-4y6"/>
-                            <constraint firstItem="kOX-Xz-0Z8" firstAttribute="leading" secondItem="pRK-HA-f7y" secondAttribute="leading" id="zfp-kj-o1L"/>
+                            <constraint firstItem="kOX-Xz-0Z8" firstAttribute="top" secondItem="pRK-HA-f7y" secondAttribute="top" id="LpJ-bd-F8t"/>
+                            <constraint firstItem="kOX-Xz-0Z8" firstAttribute="trailing" secondItem="pRK-HA-f7y" secondAttribute="trailing" id="cbO-nN-Vn5"/>
+                            <constraint firstItem="uCY-cw-Xwe" firstAttribute="top" secondItem="kOX-Xz-0Z8" secondAttribute="bottom" id="dLe-sX-XKl"/>
+                            <constraint firstItem="kOX-Xz-0Z8" firstAttribute="leading" secondItem="pRK-HA-f7y" secondAttribute="leading" id="o1e-8P-LjI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="MyPlaces" largeTitleDisplayMode="never" id="FV6-M2-Y7K">
