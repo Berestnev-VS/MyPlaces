@@ -18,6 +18,7 @@
 		E74BED7C26B0116200A38B7E /* AddNewCellTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74BED7B26B0116200A38B7E /* AddNewCellTVC.swift */; };
 		E76A169826AEF69B004D128F /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A169726AEF69B004D128F /* PlaceModel.swift */; };
 		E785EA3E26AB2A710025A5C3 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E785EA3D26AB2A710025A5C3 /* CustomCell.swift */; };
+		E795556826EA07D9007BCDEB /* StackForRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = E795556726EA07D9007BCDEB /* StackForRating.swift */; };
 		E7B8DC4D26DA788A0087A885 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B8DC4C26DA788A0087A885 /* StorageManager.swift */; };
 		E7D5856F26D3E315003B74D3 /* kindOfPlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		E74BED7B26B0116200A38B7E /* AddNewCellTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCellTVC.swift; sourceTree = "<group>"; };
 		E76A169726AEF69B004D128F /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		E785EA3D26AB2A710025A5C3 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		E795556726EA07D9007BCDEB /* StackForRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackForRating.swift; sourceTree = "<group>"; };
 		E7B8DC4C26DA788A0087A885 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kindOfPlacesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,9 +74,7 @@
 			children = (
 				E71BD8C626AAD4E100EDD7EA /* MainTableVC.swift */,
 				E74BED7B26B0116200A38B7E /* AddNewCellTVC.swift */,
-				E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */,
-				E76A169726AEF69B004D128F /* PlaceModel.swift */,
-				E785EA3D26AB2A710025A5C3 /* CustomCell.swift */,
+				E795556726EA07D9007BCDEB /* StackForRating.swift */,
 				E71BD8B626A9D87E00EDD7EA /* Main.storyboard */,
 				E71BD8B926A9D87F00EDD7EA /* Assets.xcassets */,
 				E71BD8C526A9D8D000EDD7EA /* New Group */,
@@ -85,7 +85,10 @@
 		E71BD8C526A9D8D000EDD7EA /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				E785EA3D26AB2A710025A5C3 /* CustomCell.swift */,
 				E7B8DC4C26DA788A0087A885 /* StorageManager.swift */,
+				E7D5856E26D3E315003B74D3 /* kindOfPlacesModel.swift */,
+				E76A169726AEF69B004D128F /* PlaceModel.swift */,
 				E71BD8B026A9D87E00EDD7EA /* AppDelegate.swift */,
 				E71BD8B226A9D87E00EDD7EA /* SceneDelegate.swift */,
 				E71BD8BB26A9D87F00EDD7EA /* LaunchScreen.storyboard */,
@@ -175,6 +178,7 @@
 				E71BD8B126A9D87E00EDD7EA /* AppDelegate.swift in Sources */,
 				E71BD8B326A9D87E00EDD7EA /* SceneDelegate.swift in Sources */,
 				E76A169826AEF69B004D128F /* PlaceModel.swift in Sources */,
+				E795556826EA07D9007BCDEB /* StackForRating.swift in Sources */,
 				E785EA3E26AB2A710025A5C3 /* CustomCell.swift in Sources */,
 				E7D5856F26D3E315003B74D3 /* kindOfPlacesModel.swift in Sources */,
 				E71BD8C726AAD4E100EDD7EA /* MainTableVC.swift in Sources */,

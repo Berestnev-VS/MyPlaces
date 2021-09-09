@@ -90,23 +90,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         return action
     }
-//    private func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
-//        let place = places[indexPath.row]
-//        let action = UIContextualAction(style: .normal, title: "Love it") { action, view, completion in
-//            place.isFavorite = !place.isFavorite
-//            try! realm.write {
-//                self.places[indexPath.row] = place
-//                place.isFavorite = !place.isFavorite
-//            }
-//            completion(true)
-//        }
-//        action.backgroundColor = place.isFavorite ? .systemPink : .systemGray
-//        action.image = place.isFavorite ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-//        return action
-//    } TODO: в будущем добавить избранные заведения
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
    // TODO: реализовать перемещение ячеек
@@ -114,7 +104,12 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             guard let indexPath = mainTableView.indexPathForSelectedRow else { return }
-            let place = places[indexPath.row]
+            let place: Place
+            if isSearching {
+                place = filteredPlaces[indexPath.row]
+            } else {
+                place = places[indexPath.row]
+            }
             let selectedPlaceVC = segue.destination as! AddNewCellTVC
             selectedPlaceVC.currentPlace = place 
         }
