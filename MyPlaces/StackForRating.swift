@@ -45,7 +45,7 @@ class StackForRating: UIStackView {
             button.backgroundColor = .none
             button.setTitle("☆", for: .normal)
             button.setTitleColor(.black, for: .normal)
-            
+            //
             //Add constraints
             button.translatesAutoresizingMaskIntoConstraints = false
             button.heightAnchor.constraint(equalToConstant:  buttonSize.height).isActive = true
