@@ -11,7 +11,12 @@ class StackForRating: UIStackView {
 
     // MARK: Properties
     
-    var rating: Int = 0
+    var rating: Int = 0 {
+        didSet {
+           updateButtonSelectionStates()
+        }
+    }
+    
     
     private var buttonStackArray = [UIButton]()
     
@@ -34,16 +39,35 @@ class StackForRating: UIStackView {
     // MARK: Button action
     
     @objc func ratingButtonTapped(button: UIButton) {
-        print("Button pressed")
+        guard let index = buttonStackArray.firstIndex(of: button) else { return }
+        
+        //Calculate the rating of the selected button
+        let selectedRating = index + 1
+        if selectedRating == rating {
+            rating = 0
+        } else {
+            rating = selectedRating
+        }
+        
+        
     }
 
     private func setupButtons() {
+        
+        // Load button icon
+        let emptyStar: String = "☆"
+        let highlitedStar: String = "★"
+        let filledStar: String = "⭐️"
         
         for _ in 1...buttonCount {
             // Create button
             let button = UIButton()
             button.backgroundColor = .none
-            button.setTitle("☆", for: .normal)
+            
+            button.setTitle(emptyStar, for: .normal)
+            button.setTitle(highlitedStar, for: .highlighted)
+            button.setTitle(highlitedStar, for: [.highlighted, .selected])
+            button.setTitle(filledStar, for: .selected)
             button.setTitleColor(.black, for: .normal)
             
             //Add constraints
@@ -59,6 +83,13 @@ class StackForRating: UIStackView {
         
             // Add the new button to array
             buttonStackArray.append(button)
+        }
+       updateButtonSelectionStates()
+    }
+    
+     func updateButtonSelectionStates() {
+        for (index, button) in buttonStackArray.enumerated() {
+            button.isSelected = index < rating
         }
     }
 }

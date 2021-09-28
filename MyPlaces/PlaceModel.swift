@@ -15,9 +15,10 @@ class Place: Object {
     @objc dynamic var imageData: Data?
     @objc dynamic var type: String?
     @objc dynamic var category: String?
+    @objc dynamic var rating = 0
     // @objc dynamic var isFavorite: Bool = false
    
-    convenience init(name: String, location: String?, comment: String?, imageData: Data?, type: String?, category: String?) { // isFavorite: Bool
+    convenience init(name: String, location: String?, comment: String?, imageData: Data?, type: String?, category: String?, rating: Int) { // isFavorite: Bool
         self.init()
         self.name = name
         self.location = location
@@ -25,6 +26,7 @@ class Place: Object {
         self.imageData = imageData
         self.type = type
         self.category = category
+        self.rating = rating
         // self.isFavorite = isFavorite
     }
 }

@@ -24,6 +24,8 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var placeNameTF: UITextField!
     @IBOutlet weak var placeLocationTF: UITextField!
     @IBOutlet weak var placeCommentTV: UITextView!
+    @IBOutlet weak var stackForRating: StackForRating!
+    
     var placeType: String?
     var placeTypes: String?
     var placeholderLabelForComment : UILabel!
@@ -34,11 +36,16 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         saveNewPlaceButton.isEnabled = false
         placeCategoryTF.delegate = self
         choiseCatecory() //при выборе категории задаёт в качестве инпута для клавиатуры пикер вью
-        categoryPicker.backgroundColor = UIColor(named: "mySystemColor")
+        categoryPicker.backgroundColor = .white
         placeNameTF.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         placeholderForComment()
         
         setupEditScreen()
+        
+//        if currentPlace != nil {
+//            stackForRating.updateButtonSelectionStates()
+//        }
+        
         
     }
     
@@ -106,7 +113,8 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                              comment: placeCommentTV.text,
                              imageData: imageData,
                              type: placeType,
-                             category: placeEmojiCategory.text)
+                             category: placeEmojiCategory.text,
+                             rating: stackForRating.rating)
                              // isFavorite: false
         
         
@@ -134,6 +142,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                 currentPlace?.imageData = newPlace.imageData
                 currentPlace?.type = newPlace.type
                 currentPlace?.category = newPlace.category
+                currentPlace?.rating = newPlace.rating
                 // currentPlace?.isFavorite = newPlace.isFavorite
             }
         } else { StorageManager.saveObjects(newPlace) }
@@ -166,6 +175,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
             placeEmojiCategory.text = currentPlace?.category
             placeCommentTV.text = currentPlace?.comment
             placeType = currentPlace?.type
+            stackForRating.rating = currentPlace!.rating
         }
         if placeEmojiCategory.text?.isEmpty == false {
             placeCategoryTF.placeholder = ""
@@ -292,7 +302,7 @@ extension AddNewCellTVC: UIPickerViewDelegate {
             let type = modelForPicker.typesByCategories[row]
             title = type.name
         }
-        let attrTitle = NSAttributedString(string: title, attributes: [.foregroundColor: UIColor.white, .font: UIFont.init(name: "Helvetica", size: 100)!])
+        let attrTitle = NSAttributedString(string: title, attributes: [.foregroundColor: UIColor(named: "mySystemColor") ?? .black, .font: UIFont.init(name: "Helvetica", size: 100)!])
         return attrTitle
     }
     

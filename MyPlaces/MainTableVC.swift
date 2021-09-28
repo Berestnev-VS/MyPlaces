@@ -46,28 +46,37 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if isSearching {
             return filteredPlaces.count
         } else {
-            return places.isEmpty ? 0 : places.count
+            return places.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as! CustomCell
 
-        var placeOnRow = Place()
-        
-        if isSearching {
-            placeOnRow = filteredPlaces[indexPath.row]
-        } else {
-            placeOnRow = places[indexPath.row]
-        }
+        let placeOnRow = isSearching ? filteredPlaces[indexPath.row] : places[indexPath.row]
         
         cell.nameLabel?.text = placeOnRow.name
         cell.locationLabel.text = placeOnRow.location
         cell.emojiCategory.text = placeOnRow.category
         cell.imagePlace.image = UIImage(data: placeOnRow.imageData!)
         
-        cell.imagePlace?.layer.cornerRadius = 20
-        cell.imagePlace.clipsToBounds = true
+        
+        switch placeOnRow.rating {
+            case 1:
+                cell.ratingForCell.image = UIImage(named: "1|5")
+            case 2:
+                cell.ratingForCell.image = UIImage(named: "2|5")
+            case 3:
+                cell.ratingForCell.image = UIImage(named: "3|5")
+            case 4:
+                cell.ratingForCell.image = UIImage(named: "4|5")
+            case 5:
+                cell.ratingForCell.image = UIImage(named: "5|5")
+            default:
+            cell.backgroundForRating.isHidden = true
+            break
+            
+        }
     
         return cell
     }
@@ -104,12 +113,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             guard let indexPath = mainTableView.indexPathForSelectedRow else { return }
-            let place: Place
-            if isSearching {
-                place = filteredPlaces[indexPath.row]
-            } else {
-                place = places[indexPath.row]
-            }
+            let place = isSearching ? filteredPlaces[indexPath.row] : places[indexPath.row]
             let selectedPlaceVC = segue.destination as! AddNewCellTVC
             selectedPlaceVC.currentPlace = place 
         }
