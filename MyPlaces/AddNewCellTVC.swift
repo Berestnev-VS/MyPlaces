@@ -65,6 +65,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         placeholderLabelForComment.isHidden = !placeCommentTV.text.isEmpty
     }
     
+    // MARK: Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
@@ -97,6 +98,16 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         } else { view.endEditing(true) }   // Скрытие клаиватуры по нажатию на экран (а именно при выборе ячейки)
     }
     
+    // MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "showMap" else { return }
+        
+        let mapVC = segue.destination as! MapViewController
+        mapVC.place = currentPlace
+        
+    }
+    
     func savePlace() {
         let previewImage: UIImage?
         
@@ -116,8 +127,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                              category: placeEmojiCategory.text,
                              rating: stackForRating.rating)
                              // isFavorite: false
-        
-        
+        print(newPlace.rating)
         switch placeEmojiCategory.text { //присваивает тип в зависимости от выбранной категории
         case "🍕", "🍣", "🍔", "🥗", "🍝", "🍤", "🍨", "🍩", "🐟":
             newPlace.type = "Рестораны"
@@ -143,6 +153,8 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                 currentPlace?.type = newPlace.type
                 currentPlace?.category = newPlace.category
                 currentPlace?.rating = newPlace.rating
+                
+                print(currentPlace?.rating as Any)
                 // currentPlace?.isFavorite = newPlace.isFavorite
             }
         } else { StorageManager.saveObjects(newPlace) }

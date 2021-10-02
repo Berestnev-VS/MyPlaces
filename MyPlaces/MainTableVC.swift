@@ -34,7 +34,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         searchControllerMain.definesPresentationContext = true
         searchControllerMain.isActive = false
         
-        
         if searchControllerMain.isActive {
             self.typeSegmentedControl.layer.isHidden = true
         }
@@ -74,10 +73,12 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 cell.ratingForCell.image = UIImage(named: "5|5")
             default:
             cell.backgroundForRating.isHidden = true
+            cell.ratingForCell.isHidden = true
             break
-            
         }
-    
+        
+        
+        print(placeOnRow.rating)
         return cell
     }
     
@@ -122,6 +123,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func segueSaveButton(_ segue: UIStoryboardSegue) {
         guard let newPlaceVC = segue.source as? AddNewCellTVC else { return }
         newPlaceVC.savePlace()
+        mainTableView.reloadData()
         mainTableView.reloadData()
     }
     
