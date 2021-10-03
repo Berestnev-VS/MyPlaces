@@ -5,7 +5,7 @@
 
 [![](https://upload.wikimedia.org/wikipedia/commons/4/4e/VK_Compact_Logo.svg)](https://vk.com/berestnev_v)
 
-[![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/60px-Telegram_logo.svg.png)](https://t.me/berestnev_v)
+[![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/50px-Telegram_logo.svg.png)](https://t.me/berestnev_v)
 
 
 
@@ -45,7 +45,7 @@ The data is stored using Realm.
 </p>
 Экран, на котором пользователь взаимодействует с добавляемым местом. Геолокацию можно вбить вручную или выбрать на карте. 
 Инпутом для выбора категории служит UIPickerView. Категории загружаются с помощью функции 
-```Swift
+```swift
 getTypes()
 ```
 которая отображает категории в зависимости от типа места, который выбирает пользователь (Рестораны/Развлечения/Парки и аттракционы) .
