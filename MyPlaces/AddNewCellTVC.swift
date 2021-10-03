@@ -296,15 +296,6 @@ extension AddNewCellTVC: UIPickerViewDataSource {
 
 extension AddNewCellTVC: UIPickerViewDelegate {
     
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if component == 0 {
-//            let category = modelForPicker.categories[row]
-//            return category.name
-//        } else {
-//            let type = modelForPicker.typesByCategories[row]
-//            return type.name
-//        }
-//    }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         var title = ""
         if component == 0 {
