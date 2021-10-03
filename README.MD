@@ -5,7 +5,7 @@
 
 [![](https://upload.wikimedia.org/wikipedia/commons/4/4e/VK_Compact_Logo.svg)](https://vk.com/berestnev_v)
 
-[![](https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg =50x)](https://t.me/berestnev_v)
+[![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/60px-Telegram_logo.svg.png)](https://t.me/berestnev_v)
 
 
 
