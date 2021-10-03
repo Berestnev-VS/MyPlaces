@@ -5,7 +5,7 @@
 
 [![](https://upload.wikimedia.org/wikipedia/commons/4/4e/VK_Compact_Logo.svg)](https://vk.com/berestnev_v)
 
-[![](https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg)](https://t.me/berestnev_v)
+[![](https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg = 50x)](https://t.me/berestnev_v)
 
 
 
@@ -29,19 +29,19 @@ The data is stored using Realm.
 ### MainTableVC
 
 <p align="center">
-<img src="./ReadmeAssets/Main.png" width="100%">
+<img src="./ReadmeAssets/Main.PNG" width="20%">
 </p>
 
 На этом экране отображаются добавленные пользователем места. Сверху есть фильтрация по категориям и поиск по свайпу вниз. Рядом с каждым заведением отображается рейтинг и категория, которые выбрал пользователь.
 
 <p align="center">
-<img src="./ReadmeAssets/Search.png" width="100%">
+<img src="./ReadmeAssets/Search.PNG" width="20%">
 </p>
 
 
 ### AddNewCellTVC
 <p align="center">
-<img src="./ReadmeAssets/AddNewCell.png" width="100%">
+<img src="./ReadmeAssets/AddNewCell.PNG" width="20%">
 </p>
 Экран, на котором пользователь взаимодействует с добавляемым местом. Геолокацию можно вбить вручную или выбрать на карте. 
 Инпутом для выбора категории служит UIPickerView. Категории загружаются с помощью функции 
@@ -50,6 +50,6 @@ getTypes()
 ```
 которая отображает категории в зависимости от типа места, который выбирает пользователь (Рестораны/Развлечения/Парки и аттракционы) .
 <p align="center">
-<img src="./ReadmeAssets/KeyboardPickerView.png" width="100%">
+<img src="./ReadmeAssets/KeyboardPickerView.PNG" width="20%">
 </p>
 
