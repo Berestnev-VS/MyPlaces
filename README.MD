@@ -29,19 +29,19 @@ The data is stored using Realm.
 ### MainTableVC
 
 <p align="center">
-<img src="./ReadmeAssets/Main.PNG" width="20%">
+<img src="./ReadmeAssets/Main.PNG" width="100%">
 </p>
 
 На этом экране отображаются добавленные пользователем места. Сверху есть фильтрация по категориям и поиск по свайпу вниз. Рядом с каждым заведением отображается рейтинг и категория, которые выбрал пользователь.
 
 <p align="center">
-<img src="./ReadmeAssets/Search.PNG" width="20%">
+<img src="./ReadmeAssets/Search.PNG" width="100%">
 </p>
 
 
 ### AddNewCellTVC
 <p align="center">
-<img src="./ReadmeAssets/AddNewCell.PNG" width="20%">
+<img src="./ReadmeAssets/AddNewCell.PNG" width="100%">
 </p>
 Экран, на котором пользователь взаимодействует с добавляемым местом. Геолокацию можно вбить вручную или выбрать на карте. 
 Инпутом для выбора категории служит UIPickerView. Категории загружаются с помощью функции 
@@ -50,6 +50,6 @@ getTypes()
 ```
 которая отображает категории в зависимости от типа места, который выбирает пользователь (Рестораны/Развлечения/Парки и аттракционы) .
 <p align="center">
-<img src="./ReadmeAssets/KeyboardPickerView.PNG" width="20%">
+<img src="./ReadmeAssets/KeyboardPickerView.PNG" width="100%">
 </p>
 
