@@ -76,9 +76,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.ratingForCell.isHidden = true
             break
         }
-        //
-        
-        // aa 
+        // 
         
         
         print(placeOnRow.rating)
