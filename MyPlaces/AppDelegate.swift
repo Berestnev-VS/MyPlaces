@@ -13,7 +13,7 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let currentVersion: UInt64 = 6
+        let currentVersion: UInt64 = 7
         let config = Realm.Configuration(schemaVersion: currentVersion, migrationBlock: { migration, oldSchemaVersion in
              print("oldSchemaVersion: \(oldSchemaVersion)")
              if (oldSchemaVersion < currentVersion) {

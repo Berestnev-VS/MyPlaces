@@ -109,14 +109,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-   // TODO: реализовать перемещение ячеек
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             guard let indexPath = mainTableView.indexPathForSelectedRow else { return }
             let place = isSearching ? filteredPlaces[indexPath.row] : places[indexPath.row]
             let selectedPlaceVC = segue.destination as! AddNewCellTVC
-            selectedPlaceVC.currentPlace = place 
+            selectedPlaceVC.currentPlace = place
         }
     }
     

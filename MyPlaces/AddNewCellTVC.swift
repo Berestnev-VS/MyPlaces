@@ -105,8 +105,11 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         
         let mapVC = segue.destination as! MapViewController
         mapVC.place = currentPlace
+
         
     }
+    
+    // MARK: Save
     
     func savePlace() {
         let previewImage: UIImage?
@@ -166,6 +169,8 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         placeCategoryTF.inputView = categoryPicker
         
     }
+    
+    // MARK: Setup Edit Screen
     
     private func setupEditScreen() {
         if currentPlace != nil {
