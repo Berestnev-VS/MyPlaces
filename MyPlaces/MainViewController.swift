@@ -80,10 +80,11 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         ///
         ///asadasdashjkda
-        /////dasdasjkl
-        ////asdasdasd
-        ////sadasdas
-        //as
+        //asdsad
+        //asdasd
+        //asdasa
+        //asdasd
+        //asd
         
         
         print(placeOnRow.rating)
