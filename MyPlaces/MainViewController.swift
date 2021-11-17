@@ -79,8 +79,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //
         
         ///
-        ///asadasdashjkda
-        //asdsad
+        ///asadasdashjkd
         
         
         print(placeOnRow.rating)
