@@ -79,7 +79,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         
-        //tуы
+        //tу
         
         
         print(placeOnRow.rating)
