@@ -16,6 +16,7 @@ class Place: Object {
     @objc dynamic var type: String?
     @objc dynamic var category: String?
     @objc dynamic var rating = 0
+    
     // @objc dynamic var isFavorite: Bool = false
    
     convenience init(name: String, location: String?, comment: String?, imageData: Data?, type: String?, category: String?, rating: Int) { // isFavorite: Bool

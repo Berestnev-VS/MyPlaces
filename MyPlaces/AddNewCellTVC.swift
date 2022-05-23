@@ -10,12 +10,14 @@ import RealmSwift
 
 class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     
+    @IBOutlet weak var mapButton: UIButton!
     var currentPlace: Place?
     var imageDidAdd: Bool = false
     let categoryPicker = UIPickerView()
     var modelForPicker = ModelForPicker()
     
     
+    @IBOutlet weak var pin: UIButton!
     @IBOutlet weak var saveNewPlaceButton: UIBarButtonItem!
     @IBOutlet weak var imageBackrgound: UIImageView!
     @IBOutlet weak var placeCategoryTF: UITextField!
@@ -27,17 +29,20 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var stackForRating: StackForRating!
     
     var placeType: String?
-    var placeTypes: String?
+    
     var placeholderLabelForComment : UILabel!
     
     override func viewDidLoad() {
+        pin.imageView?.contentMode = .scaleAspectFill
         // TODO: запретить вставлять текст в категорию
         super.viewDidLoad()
+        mapButton.isHidden = true
         saveNewPlaceButton.isEnabled = false
         placeCategoryTF.delegate = self
         choiseCatecory() //при выборе категории задаёт в качестве инпута для клавиатуры пикер вью
         categoryPicker.backgroundColor = .white
         placeNameTF.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
+        placeLocationTF.addTarget(self, action: #selector(updateMapButton), for: .editingChanged)
         placeholderForComment()
         
         setupEditScreen()
@@ -49,7 +54,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
         
     }
     
-    // Отвечает за плэйсхолдер для комментария UITextView
+    // Отвечает за плэйсхолдер для UITextView
     fileprivate func placeholderForComment () {
         placeCommentTV.delegate = self
         placeholderLabelForComment = UILabel()
@@ -101,26 +106,33 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "showMap" else { return }
         
-        let mapVC = segue.destination as! MapViewController
-        mapVC.place = currentPlace
-
+        guard let identifier = segue.identifier,
+            let mapVC = segue.destination as? MapViewController
+            else { return }
+        print(identifier)
+        mapVC.incomeSegueIdentifier = identifier
+        mapVC.mapViewControllerDelegate = self
         
+        if identifier == "showPlace" {
+            mapVC.place.name = placeNameTF.text!
+            mapVC.place.location = placeLocationTF.text!
+            mapVC.place.category = placeEmojiCategory.text!
+            mapVC.place.comment = placeCommentTV.text!
+            mapVC.place.imageData = placeImage.image?.pngData()
+            mapVC.place.rating = stackForRating.rating
+            print(mapVC.place.rating)
+        }
     }
     
     // MARK: Save
     
     func savePlace() {
-        let previewImage: UIImage?
         
-        if imageDidAdd {
-            previewImage = placeImage.image!
-        } else {
-            previewImage = UIImage(named: "image.icon")! //TODO: настроить отображение при отсутствии фото
-        }
-        
+        let previewImage = imageDidAdd ? placeImage.image : UIImage(named: "emptyPhoto")!
+    
         let imageData = previewImage?.pngData()
+        
         
         let newPlace = Place(name: placeNameTF.text!,
                              location: placeLocationTF.text,
@@ -130,7 +142,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                              category: placeEmojiCategory.text,
                              rating: stackForRating.rating)
                              // isFavorite: false
-        print(newPlace.rating)
+        
         switch placeEmojiCategory.text { //присваивает тип в зависимости от выбранной категории
         case "🍕", "🍣", "🍔", "🥗", "🍝", "🍤", "🍨", "🍩", "🐟":
             newPlace.type = "Рестораны"
@@ -142,7 +154,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
             newPlace.type = "Парки"
             print(newPlace.name, " это Парк")
         case nil:
-            print("Заведение не имеет типа")
+            print("Заведение без типа")
         default:
             print("WARNING!")
         }
@@ -156,11 +168,13 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
                 currentPlace?.type = newPlace.type
                 currentPlace?.category = newPlace.category
                 currentPlace?.rating = newPlace.rating
-                
                 print(currentPlace?.rating as Any)
                 // currentPlace?.isFavorite = newPlace.isFavorite
             }
-        } else { StorageManager.saveObjects(newPlace) }
+            
+        } else {
+            StorageManager.saveObjects(newPlace)
+        }
     }
     
     //Инпут PickerView для TextField
@@ -194,12 +208,18 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
             placeType = currentPlace?.type
             stackForRating.rating = currentPlace!.rating
         }
+        
         if placeEmojiCategory.text?.isEmpty == false {
             placeCategoryTF.placeholder = ""
             placeCategoryTF.tintColor = .clear
         }
         if placeCommentTV.text.isEmpty == false {
             placeholderLabelForComment.isHidden = true
+        }
+        if placeLocationTF.text == "" {
+            mapButton.isHidden = true
+        } else {
+            mapButton.isHidden = false
         }
     }
     
@@ -232,10 +252,18 @@ extension AddNewCellTVC: UITextFieldDelegate {
     }
     
     @objc private func updateSaveButton() {
-        if placeNameTF.text?.isEmpty == false && placeEmojiCategory.text?.isEmpty == false {
+        if placeNameTF.text?.isEmpty == false {
             saveNewPlaceButton.isEnabled = true
         } else {
             saveNewPlaceButton.isEnabled = false
+        }
+        
+    }
+    @objc private func updateMapButton() {
+        if placeLocationTF.text?.isEmpty == true {
+            mapButton.isHidden = true
+        } else {
+            mapButton.isHidden = false
         }
     }
     
@@ -335,5 +363,11 @@ extension AddNewCellTVC: UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return CGFloat(50)
+    }
+}
+
+extension AddNewCellTVC: MapViewControllerDelegate {
+    func getAddress(_ address: String?) {
+        placeLocationTF.text = address
     }
 }

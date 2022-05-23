@@ -6,6 +6,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private let searchControllerMain = UISearchController(searchResultsController: nil)
     private var places: Results<Place>!
     private var filteredPlaces: Results<Place>!
+    var mainPreviewImage: UIImage?
      
     private var searchBarIsEmpty: Bool {
         guard let text = searchControllerMain.searchBar.text else { return false }
@@ -51,7 +52,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as! CustomCell
-
         let placeOnRow = isSearching ? filteredPlaces[indexPath.row] : places[indexPath.row]
         
         cell.nameLabel?.text = placeOnRow.name
@@ -59,30 +59,37 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.emojiCategory.text = placeOnRow.category
         cell.imagePlace.image = UIImage(data: placeOnRow.imageData!)
         
+        if placeOnRow.category == nil {
+            cell.backgroundImageCategory.isHidden = true
+        } else if placeOnRow.category == "" {
+            cell.backgroundImageCategory.isHidden = true
+        } else {
+            cell.backgroundImageCategory.isHidden = false
+        }
+    
+        if placeOnRow.rating == 0 {
+            cell.ratingForCell.isHidden = true
+            cell.backgroundForRating.isHidden = true
+        } else {
+            cell.ratingForCell.isHidden = false
+            cell.backgroundForRating.isHidden = false
+        }
         
         switch placeOnRow.rating {
-            case 1:
-                cell.ratingForCell.image = UIImage(named: "1|5")
-            case 2:
-                cell.ratingForCell.image = UIImage(named: "2|5")
-            case 3:
-                cell.ratingForCell.image = UIImage(named: "3|5")
-            case 4:
-                cell.ratingForCell.image = UIImage(named: "4|5")
-            case 5:
-                cell.ratingForCell.image = UIImage(named: "5|5")
-            default:
-            cell.backgroundForRating.isHidden = true
-            cell.ratingForCell.isHidden = true
+        case 1:
+            cell.ratingForCell.image = UIImage(named: "1|5")
+        case 2:
+            cell.ratingForCell.image = UIImage(named: "2|5")
+        case 3:
+            cell.ratingForCell.image = UIImage(named: "3|5")
+        case 4:
+            cell.ratingForCell.image = UIImage(named: "4|5")
+        case 5:
+            cell.ratingForCell.image = UIImage(named: "5|5")
+        default:
             break
         }
         
-        
-        
-        //tу
-        
-        
-        print(placeOnRow.rating)
         return cell
     }
     
