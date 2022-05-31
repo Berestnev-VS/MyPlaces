@@ -14,7 +14,7 @@ class AddNewCellTVC: UITableViewController, UITextViewDelegate {
     var currentPlace: Place?
     var imageDidAdd: Bool = false
     let categoryPicker = UIPickerView()
-    var modelForPicker = ModelForPicker()
+    var modelForPicker = ModelForPickerView()
     
     
     @IBOutlet weak var pin: UIButton!

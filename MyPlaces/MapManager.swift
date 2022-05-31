@@ -11,9 +11,12 @@ import UIKit
 class MapManager {
     
     let locationManager = CLLocationManager()
-    
+    var response = MKDirections.Response()
     var placeCordinate: CLLocationCoordinate2D?
     var personCordinate: CLLocationCoordinate2D?
+    
+    var transportType = MKDirectionsTransportType()
+    
     
     var directionsArray: [MKDirections] = []
     
@@ -101,14 +104,11 @@ class MapManager {
         }
     }
     
-    func getDirections(for mapView: MKMapView, previousLocation: (CLLocation) -> ()) -> MKDirections {
-        
-        var distance: String?
-        var travelTime: String?
+    func getDirections(for mapView: MKMapView, previousLocation: (CLLocation) -> ())  {
         
         guard let location = locationManager.location?.coordinate else {
             showAlert(title: "Error", message: "Current location is not found")
-            return MKDirections()
+            return 
         }
         
         locationManager.startUpdatingLocation()
@@ -116,50 +116,51 @@ class MapManager {
         
         guard let request = createDirectionsRequest(from: location) else {
             showAlert(title: "Error", message: "Destination is not found")
-            return MKDirections()
+            return
         }
-        
+        /* TODO: Не получается изменить request.transportType заранее.
+         Маршрут строится в менеджере по реквесту.
+         А мне нужно изменять реквест в контроллере до того, как построится маршрут.
+         */
         let directions = MKDirections(request: request)
         resetMapView(withNew: directions, mapView: mapView)
-        
         directions.calculate { response, error in
             
             if let error = error { print(error); return }
             
-            guard let response = response
+            guard let resp = response
             else {
                 self.showAlert(title: "Error", message: "Direction is not available")
                 return
             }
+                self.response = resp
             
-            for route in response.routes {
-                mapView.addOverlay(route.polyline)
-                mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
-                
-                distance = String(format: "%.1f", route.distance / 1000)
-                travelTime = String(format: "%.1f", route.expectedTravelTime / 60)
-                
-                print("В MapManager. distance: \(distance), travelTime: \(travelTime)")
+            var routesArray: [MKRoute] = []
+            
+            for route in resp.routes {
+                routesArray.append(route)
             }
+        
+            let sortedArray = routesArray.sorted { $0.expectedTravelTime < $1.expectedTravelTime }
+            mapView.addOverlay(sortedArray[0].polyline)
+            mapView.setVisibleMapRect(sortedArray[0].polyline.boundingMapRect, animated: true)
+            print(sortedArray)
         }
-        print("Перед return: \(distance),\(travelTime)")
-        return directions
     }
 
-    func createDirectionsRequest(from cordinate: CLLocationCoordinate2D) -> MKDirections.Request? {
+    func createDirectionsRequest(from coordinate: CLLocationCoordinate2D) -> MKDirections.Request? {
         
-        guard let destinationCordinate = placeCordinate else { return nil }
-        personCordinate = cordinate
+        guard let destinationCoordinate = placeCordinate else { return nil }
+        let startingLocation = MKPlacemark(coordinate: coordinate)
+        let destination = MKPlacemark(coordinate: destinationCoordinate)
         
-        let startingLocation = MKPlacemark(coordinate: cordinate)
-        let destination = MKPlacemark(coordinate: destinationCordinate)
-    
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: startingLocation)
         request.destination = MKMapItem(placemark: destination)
+        request.transportType = transportType
+        request.requestsAlternateRoutes = true
         
         return request
-        
     }
     
     func startTrackingUserLocation(for mapView: MKMapView, location: CLLocation?, closure: (_ currentLocation: CLLocation) -> ()) {

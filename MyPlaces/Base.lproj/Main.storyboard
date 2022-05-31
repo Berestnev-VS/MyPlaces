@@ -654,6 +654,9 @@
                                     <segment title="" image="figure.walk" catalog="system"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" name="mySystemColor"/>
+                                <connections>
+                                    <action selector="test:" destination="k2U-wM-uMi" eventType="valueChanged" id="XfO-Ua-1HN"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hAf-XP-OWB" userLabel="dirBackground View">
                                 <rect key="frame" x="287" y="64" width="121" height="9"/>

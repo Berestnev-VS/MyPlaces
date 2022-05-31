@@ -101,36 +101,44 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func goButtonPressed() {
-      //  self.mapView.removeOverlays(self.mapView.overlays)
         mapManager.getDirections(for: mapView) { location in
             self.previousLocation = location
         }
-        giveMeDistance(direction: mapManager.getDirections(for: mapView, previousLocation: { location in
-            self.previousLocation = location
-        }))
-        dirBackgroundView.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.makeDir(response: self.mapManager.response)
+            self.dirBackgroundView.isHidden = false
+        }
     }
     
-    func giveMeDistance(direction: MKDirections) {
-        direction.calculate { response, error in
-            
-            if let error = error { print(error); return }
-            
-            guard let response = response else { return }
-            
-            for route in response.routes {
-                
-                self.distanceToPlaceLabel.text = String(format: "%.1f", route.distance / 1000)
-                self.travelTimeLabel.text = String(format: "%.1f", route.expectedTravelTime / 60)
-
-            }
+    func makeDir(response: MKDirections.Response) {
+        
+        var routesArray: [MKRoute] = []
+        
+        for route in response.routes {
+            routesArray.append(route)
+        }
+        
+        routesArray = routesArray.sorted { $0.expectedTravelTime < $1.expectedTravelTime }
+        
+        self.distanceToPlaceLabel.text = String(format: "%.1f", routesArray[0].distance / 1000)
+        self.travelTimeLabel.text = String(format: "%.1f", routesArray[0].expectedTravelTime / 60)
+        
+    }
+    
+    @IBAction func changeTransportType(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            mapManager.transportType = .automobile
+        case 1:
+            mapManager.transportType = .walking
+        default:
+            mapManager.transportType = .any
         }
     }
     
     @IBAction func closeMap() {
         dismiss(animated: true)
     }
-    
     
 }
 
@@ -163,26 +171,7 @@ extension MapViewController: MKMapViewDelegate {
     
     }
     
-    func changeTransportType() {
-        let startingLocation = MKPlacemark(coordinate: mapManager.personCordinate!)
-        let destination = MKPlacemark(coordinate: mapManager.placeCordinate!)
-    
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: startingLocation)
-        request.destination = MKMapItem(placemark: destination)
-        
-        switch transportTypeSegmentedControl.selectedSegmentIndex {
-        case 0:
-            request.transportType = .automobile
-        case 1:
-            request.transportType = .walking
-        default:
-            request.transportType = .any
-        }
-        
-    }
-    
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView,  DidChangeAnimated animated: Bool) {
         
         let center = mapManager.getCenterLocation(for: mapView)
         let geocoder = CLGeocoder()
@@ -214,13 +203,6 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
-        renderer.strokeColor = UIColor(named: "mySystemColor")
-        
-        return renderer
-    }
-    
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -232,6 +214,13 @@ extension MapViewController: CLLocationManagerDelegate {
         if incomeSegueIdentifier == "getAddress" {
             mapManager.showUserLocation(mapView: mapView)
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        renderer.strokeColor = UIColor(named: "mySystemColor")
+        
+        return renderer
     }
     
 }

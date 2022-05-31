@@ -10,7 +10,7 @@ struct Type {
     var category_id: Int
 }
 
-class ModelForPicker {
+class ModelForPickerView {
     
     var categories = [Category]()
     var types = [Type]()
